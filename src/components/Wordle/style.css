@@ -1,0 +1,93 @@
+.outer-box {
+    margin: 50px auto;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.group {
+    padding: 2.5px;
+    display: flex;
+    flex-direction: row;
+    grid-gap: 5px;
+    /* color : red; */
+
+}
+
+.Box {
+    height: 52px;
+    width: 52px;
+    display: flex;
+    box-sizing: border-box;
+    border: 2px solid rgb(205, 205, 205);
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    font-weight: 700;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+}
+.greenBox{
+    
+    background-color: #6AAA64;
+    color : white;
+    border: none;
+}
+
+.yellowBox{
+    
+    background-color: #c9b458;
+    color : white;
+    border: none;
+}
+
+.greyBox{
+    
+    background-color: #787c7e;
+    color : white;
+    border: none;
+}
+
+.keyboar_btn {
+    width: 40px;
+    height: 60px;
+    min-width: fit-content;
+    font-size: 1.25em;
+    font-weight: bold;
+    border: none;
+    background-color: #d3d6da;
+
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+
+
+}
+
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-top: 3dvh;
+
+}
+
+.h1{
+    font-family: "nyt-karnakcondensed";
+    font-weight: 700;
+    font-weight: bold ;
+    text-align: center;
+    font-size: 32px;
+}
+
+
+
+
+

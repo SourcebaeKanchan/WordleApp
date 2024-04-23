@@ -23,7 +23,7 @@ function Wordle() {
     const [grey, setGrey] = useState([])
     const [message, setMessage] = useState('')
     // const [copyArr2,setCopyArr2]=useState([...arr2])
-    const Word = 'YMPYT'  //'EMETY' //'EMPTY
+    const Word =  'EMPTY' //'EMETY' //'EMPTY 'YMPYT'
 
     const match = (wordcmp, datastoragecmp) => {
 

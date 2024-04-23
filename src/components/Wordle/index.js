@@ -23,19 +23,62 @@ function Wordle() {
     const [grey, setGrey] = useState([])
     const [message, setMessage] = useState('')
     // const [copyArr2,setCopyArr2]=useState([...arr2])
-    const Word = 'EMPTY'
+    const Word = 'YMPYT'  //'EMETY' //'EMPTY
 
     const match = (wordcmp, datastoragecmp) => {
+
+                                                 // let arr3 = ['A' , 'B' , 'C' , 'D' , 'D' , 'A' , 'Z', 'C']
+function removeDuplicatesWordle(datastoragecmp) {
+	return datastoragecmp.filter((item,
+		index) => datastoragecmp.indexOf(item) === index);
+}
+
+let hello = removeDuplicatesWordle(datastoragecmp)
+console.log(hello ,"counting duplicates");
+//counting duplicates
+let count 
+let occur = hello.map((value)=>{
+    count = 0
+    datastoragecmp.map((item)=>{
+        if(item===value)
+        {
+            count++
+        }
+    })
+    return count
+})
+
+console.log(occur , "yha pe count pta chlega")
+
+//pushing array values in array of object
+let arrs = []
+
+
+        
 
         const newArr = datastoragecmp.map((item, idx) => { //Normal map Hm tb chlate h jb kuch return nhi krana h ,jaise sirf carddata display krana h.. Nhi to return krane pe ek variablepe store krayenge aur fir return krayenge
 
             if (wordcmp.includes(item)) {
-                let word = wordcmp.split("")
+                let word = wordcmp.split("") //wordcmp hmara word naam ka array bn gya. // Sir k students k liye test lena h weekly test,weekly assignment // interview questions ready bnana h.. // aur placement k liye refer krna h..
 
                 if (word[idx] === datastoragecmp[idx])
+                 {
+                    let i = hello.indexOf(datastoragecmp[idx])
+                    occur[i]=occur[i]-1 
                     return idx
+                 }   
                 else
-                    return item
+                {
+                    let i = hello.indexOf(word[idx])
+                    if(occur[i]>=1)
+                    {
+                        return item
+                    }
+                    else
+                    {
+                        return null  
+                    }   
+                }      
             }
             else
                 return null
@@ -71,11 +114,7 @@ function Wordle() {
 
                 //Game Exit and Game Restart
             }
-
         }
-
-
-
     }
 
     const handleBackSpace = () => {
@@ -98,13 +137,6 @@ function Wordle() {
                 }
             }
         }
-
-
-
-
-
-
-
 
 
     }

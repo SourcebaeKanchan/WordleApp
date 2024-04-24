@@ -14,6 +14,7 @@ function Wordle() {
 
     let k = -1;
 
+    const [Word, setWord] = useState()
     const [matarr, setmatrixArray] = useState([])
     const [itemstorage, setItemStorage] = useState(null)
     const [dataStorage, setdataStorage] = useState([])
@@ -23,67 +24,122 @@ function Wordle() {
     const [grey, setGrey] = useState([])
     const [message, setMessage] = useState('')
     // const [copyArr2,setCopyArr2]=useState([...arr2])
-    const Word =  'EMPTY' //'EMETY' //'EMPTY 'YMPYT'
+    //const Word = 'EMPYY' //'EMETY' //'EMPTY 'YMPYT'
 
-    const match = (wordcmp, datastoragecmp) => {
+    const getdata = () => {
+        fetch("https://random-word-api.herokuapp.com/word?length=5").then((result) => {
 
-                                                 // let arr3 = ['A' , 'B' , 'C' , 'D' , 'D' , 'A' , 'Z', 'C']
-function removeDuplicatesWordle(datastoragecmp) {
-	return datastoragecmp.filter((item,
-		index) => datastoragecmp.indexOf(item) === index);
-}
+            result.json().then((data) => {
+                console.log(data)
+                let data1 = data[0].toUpperCase()
+                setWord(data1)
 
-let hello = removeDuplicatesWordle(datastoragecmp)
-console.log(hello ,"counting duplicates");
-//counting duplicates
-let count 
-let occur = hello.map((value)=>{
-    count = 0
-    datastoragecmp.map((item)=>{
-        if(item===value)
-        {
-            count++
+            })
+        })
+    }
+
+    useEffect(() => {
+        getdata()
+    }, [])
+
+
+
+
+    const match = (datastoragecmp) => {
+
+        let word = Word?.split('') //wordcmp hmara word naam ka array bn gya.
+
+        // let arr3 = ['A' , 'B' , 'C' , 'D' , 'D' , 'A' , 'Z', 'C']
+        function removeDuplicatesWordle(datastoragecmp) {
+            return datastoragecmp.filter((item,
+                index) => datastoragecmp.indexOf(item) === index);
         }
-    })
-    return count
-})
 
-console.log(occur , "yha pe count pta chlega")
+        let hello = removeDuplicatesWordle(datastoragecmp)
+        //counting duplicates for word
 
-//pushing array values in array of object
-let arrs = []
+        let helloA = removeDuplicatesWordle(word)
+        //counting duplicates for datastorage
+        let count, countA
+        let occur = hello.map((value) => {
+            count = 0
+            datastoragecmp.map((item) => {
+                if (item === value) {
+                    count++
+                }
+            })
+            return count
+        })
 
 
-        
+        //counting duplicates for word (actual word)
+        let occurA = helloA.map((value) => {
+            countA = 0
+            word.map((item) => {
+                if (item === value) {
+                    countA++
+                }
+            })
+            return countA
+        })
+
+
+        //pushing array values in array of object
+
 
         const newArr = datastoragecmp.map((item, idx) => { //Normal map Hm tb chlate h jb kuch return nhi krana h ,jaise sirf carddata display krana h.. Nhi to return krane pe ek variablepe store krayenge aur fir return krayenge
 
-            if (wordcmp.includes(item)) {
-                let word = wordcmp.split("") //wordcmp hmara word naam ka array bn gya. // Sir k students k liye test lena h weekly test,weekly assignment // interview questions ready bnana h.. // aur placement k liye refer krna h..
+            if (Word.includes(item)) {
 
-                if (word[idx] === datastoragecmp[idx])
-                 {
-                    let i = hello.indexOf(datastoragecmp[idx])
-                    occur[i]=occur[i]-1 
-                    return idx
-                 }   
-                else
+                // let word = wordcmp.split("")  //wordcmp hmara word naam ka array bn gya. 
+                if (datastoragecmp[idx] === word[idx])          //   Sir k students k liye test lena h weekly test,weekly assignment // interview questions ready bnana h.. // aur placement k liye refer krna h..
                 {
-                    let i = hello.indexOf(word[idx])
-                    if(occur[i]>=1)
-                    {
-                        return item
-                    }
-                    else
-                    {
-                        return null  
-                    }   
-                }      
+                    let i = hello.indexOf(datastoragecmp[idx])
+                    let j = helloA.indexOf(datastoragecmp[idx])
+
+                    occur[i] = occur[i] - 1
+                    occurA[j] = occurA[j] - 1
+                    return idx
+                }
+                else {
+                    return null
+                }
+
             }
             else
                 return null
         })
-        return newArr
+
+        const finalArr = datastoragecmp.map((item, idx) => {
+
+            if (Word.includes(item)) {
+                if (newArr[idx] === null) {
+                    let i = hello.indexOf(datastoragecmp[idx])
+                    let j = helloA.indexOf(datastoragecmp[idx])
+
+                    if (occur[i] > 0 && occurA[j] > 0) {
+                        occur[i] = occur[i] - 1
+                        occurA[j] = occurA[j] - 1
+                        return item
+                    }
+                    else {
+                        return null
+                    }
+                }
+                else {
+                    return newArr[idx]
+                }
+            }
+            else {
+                return null
+            }
+
+        })
+
+
+
+
+        return finalArr
     }
 
     const handleOnclick = (item) => {
@@ -95,8 +151,6 @@ let arrs = []
         else {
             if (rowIndex < 6 && dataStorage.length < 5) {
                 setmatrixArray(prevmatvalue => [...prevmatvalue, item])
-                console.log("Yeh This is matrix")
-
 
             }
 
@@ -127,7 +181,7 @@ let arrs = []
                 setMessage("You have reached maximum no. of attempts . Please restart the game")
             }
             else {
-                console.log("Element Popped UP")
+                // console.log("Element Popped UP")
                 k--
 
                 if (dataStorage.length >= 1 && rowIndex < 6) {
@@ -142,7 +196,7 @@ let arrs = []
     }
 
     const matchArr = () => {
-        var check = match(Word, dataStorage) // match function calling 
+        var check = match(dataStorage) // match function calling 
         let num = 4;
         let temp1 = check.map((item) => {
             if (typeof item === typeof num)
@@ -190,7 +244,7 @@ let arrs = []
 
         if (dataStorage.join('') === Word && rowIndex === 6 && dataStorage.length === 5) {
             setMessage("Congratulations  You Won. Please Start a New Game")  //New Game
-        
+
 
         }
         else {
@@ -256,7 +310,7 @@ let arrs = []
                                 let itr = rowIndex - 1
                                 k++
                                 return <div
-                                    className={`Box ${green[k] && i === itr && 'greenBox' || green[k] && i < itr && 'greenBox' || yellow[k] && i === itr && 'yellowBox' || yellow[k] && i < itr && 'yellowBox' || grey[k] && i === itr && 'greyBox' || grey[k] && i < itr && 'greyBox'} `}
+                                    className={`Box ${(green[k] && i === itr && 'greenBox') || (green[k] && i < itr && 'greenBox') || (yellow[k] && i === itr && 'yellowBox') || (yellow[k] && i < itr && 'yellowBox') || (grey[k] && i === itr && 'greyBox') || (grey[k] && i < itr && 'greyBox')} `}
                                     // className={`Box ${false ? 'bg-red-900' : 'border-[4px] border-red-900'} `}
                                     key={index.toString()}  >
 

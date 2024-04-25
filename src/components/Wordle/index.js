@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./style.css"
 import { IoBackspaceOutline } from "react-icons/io5";
 import PositionedSnackbar from "./popup";
+import SimplePopup from "./instructionspopup";
 
 
 function Wordle() {
@@ -23,14 +24,14 @@ function Wordle() {
     const [yellow, setYellow] = useState([])
     const [grey, setGrey] = useState([])
     const [message, setMessage] = useState('')
-    // const [copyArr2,setCopyArr2]=useState([...arr2])
+
     //const Word = 'EMPYY' //'EMETY' //'EMPTY 'YMPYT'
 
     const getdata = () => {
         fetch("https://random-word-api.herokuapp.com/word?length=5").then((result) => {
 
             result.json().then((data) => {
-                console.log(data)
+                // console.log(data)
                 let data1 = data[0].toUpperCase()
                 setWord(data1)
 
@@ -47,7 +48,7 @@ function Wordle() {
 
     const match = (datastoragecmp) => {
 
-        let word = Word?.split('') //wordcmp hmara word naam ka array bn gya.
+        let word = Word?.split('') //Word state now word array
 
         // let arr3 = ['A' , 'B' , 'C' , 'D' , 'D' , 'A' , 'Z', 'C']
         function removeDuplicatesWordle(datastoragecmp) {
@@ -87,13 +88,12 @@ function Wordle() {
         //pushing array values in array of object
 
 
-        const newArr = datastoragecmp.map((item, idx) => { //Normal map Hm tb chlate h jb kuch return nhi krana h ,jaise sirf carddata display krana h.. Nhi to return krane pe ek variablepe store krayenge aur fir return krayenge
+        const newArr = datastoragecmp.map((item, idx) => { //Normal map tb chlate h jb kuch return nhi 
 
             if (Word.includes(item)) {
 
-                // let word = wordcmp.split("")  //wordcmp hmara word naam ka array bn gya. 
-                if (datastoragecmp[idx] === word[idx])          //   Sir k students k liye test lena h weekly test,weekly assignment // interview questions ready bnana h.. // aur placement k liye refer krna h..
-                {
+                // let word = wordcmp.split("") 
+                if (datastoragecmp[idx] === word[idx]) {
                     let i = hello.indexOf(datastoragecmp[idx])
                     let j = helloA.indexOf(datastoragecmp[idx])
 
@@ -158,7 +158,7 @@ function Wordle() {
             if (rowIndex < 6) {
                 setItemStorage(item)
                 if (dataStorage.length < 5) {
-                    setdataStorage(prevdataStorage => [...prevdataStorage, item]) //shallow copy, deep copy. //Pragati Patel
+                    setdataStorage(prevdataStorage => [...prevdataStorage, item]) //shallow copy, deep copy. //PP
 
                 }
 
@@ -234,7 +234,7 @@ function Wordle() {
 
         })
 
-        //setYellow(temp2)
+        //setGrey(temp3)
         temp3.forEach(element3 => {
             setGrey(prevgreyvalue => [...prevgreyvalue, element3])
         })
@@ -267,8 +267,8 @@ function Wordle() {
                         // setdataStorage([]) //Game Exit and Game Restart
                     } else {
                         if (rowIndex < 5) {
-                            console.log("Incorrect Guess . PleaseTry Again")
-                            setMessage("Incorrect Guess . PleaseTry Again")
+
+                            setMessage("Incorrect Guess . Please Try Again")
                             dataStorage.splice(0, dataStorage.length)
                         }
                         // matchArr()
@@ -289,17 +289,22 @@ function Wordle() {
     }
 
     useEffect(() => {
-        console.log(dataStorage, "dataStorage")
-        console.log(matarr, "MatrixArray")
-        console.log(green, "GReean arrray status")
-        console.log(yellow, "Yellow Array status")
+
 
     }, [itemstorage, dataStorage, matarr, green, yellow])
 
 
     return (
+
+
         <div className="outer-box" >
+            <div className="how_to_play">
+                <SimplePopup />
+
+            </div>
+
             <h1> Wordle </h1>
+
 
             <div className="inner-box" style={{ width: "300px", height: "360px" }}>
                 {
@@ -311,7 +316,7 @@ function Wordle() {
                                 k++
                                 return <div
                                     className={`Box ${(green[k] && i === itr && 'greenBox') || (green[k] && i < itr && 'greenBox') || (yellow[k] && i === itr && 'yellowBox') || (yellow[k] && i < itr && 'yellowBox') || (grey[k] && i === itr && 'greyBox') || (grey[k] && i < itr && 'greyBox')} `}
-                                    // className={`Box ${false ? 'bg-red-900' : 'border-[4px] border-red-900'} `}
+
                                     key={index.toString()}  >
 
                                     {
@@ -408,8 +413,8 @@ function Wordle() {
                 </div>
 
             </div>
-
         </div>
+
     )
 }
 

@@ -80,14 +80,76 @@
 }
 
 .h1{
-    font-family: "nyt-karnakcondensed";
+    font-family: "nyt-karnak";
     font-weight: 700;
     font-weight: bold ;
     text-align: center;
     font-size: 32px;
 }
+.h2{
+    font-family:     " nyt-karnakcondensed";
+    font-weight:200;
+    font-weight: bold ;
+    text-align: center;
+    font-size: 26px;
 
+}
 
+.button{
+   display: flex;
+   align-items: center;
+}
 
+.boxes{
+    display: flex;
+    gap : 6px;
+    border-radius: 2px;
+    border-color: grey;
+}
 
+.instruction_Box{
+
+    width: 32px;
+    height: 33px;
+    font-weight: 400;
+    font-size: 24px;
+    
+}
+.parent{
+    gap : 4px;
+}
+.instruction_wrapper{
+    gap : 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.green_class{
+    background-color: #6AAA64;
+    color : white;
+    border: none;
+}
+.yellow_class{
+    background-color: #c9b458;
+    color : white;
+    border: none;
+
+}
+.gray_class{
+    background-color: #787c7e;
+    color : white;
+    border: none;
+
+}
+.how_to_play{
+    display:  flex;
+    width: 90%;
+    justify-content: flex-end;
+}
+.basePopup{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
 

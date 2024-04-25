@@ -31,7 +31,7 @@ function Wordle() {
         fetch("https://random-word-api.herokuapp.com/word?length=5").then((result) => {
 
             result.json().then((data) => {
-                // console.log(data)
+                
                 let data1 = data[0].toUpperCase()
                 setWord(data1)
 
@@ -257,8 +257,8 @@ function Wordle() {
                 if (dataStorage.length === 5) {
                     matchArr()
                     if (dataStorage.join('') === Word) {
-                        console.log("Congratulations  You Won")
-                        setMessage("Congratulations  You Won")
+                        
+                        setMessage("Congratulations  You Won .")
                         setTimeout(() => {
                             window?.location?.reload()
                         }, 3000);
@@ -374,14 +374,18 @@ function Wordle() {
                                                 handleEnter()
                                                 if (rowIndex === 5) {
                                                     if (dataStorage.join('') === Word) {
-                                                        setMessage("You Won the Game. Click Next to start new match.")
+                                                        setMessage("You Won the Game. Starting a new match.")
+                                                        
                                                         //   <PositionedSnackbar message={'You Won the Game. Click Next to start new match.'} />
 
                                                     }
 
                                                     else {
                                                         setMessage("Sorry , You Cannot guess the word this time . No. of attempts Exhausted .  Game Over. Better Luck Next Time !!!")
-
+                                                        setTimeout(() => {
+                                                            window?.location?.reload()
+                                                        }, 3000);
+                                                        
                                                     }
 
                                                 }
